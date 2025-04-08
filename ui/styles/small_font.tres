@@ -1,0 +1,9 @@
+[gd_resource type="Theme" format=3 uid="uid://bsjkrm804wafy"]
+
+[resource]
+RichTextLabel/constants/line_separation = -4
+RichTextLabel/font_sizes/bold_font_size = 12
+RichTextLabel/font_sizes/bold_italics_font_size = 12
+RichTextLabel/font_sizes/italics_font_size = 12
+RichTextLabel/font_sizes/mono_font_size = 12
+RichTextLabel/font_sizes/normal_font_size = 12

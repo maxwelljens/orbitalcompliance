@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://77xkaw1qrmgr"]
+
+[ext_resource type="FontFile" uid="uid://x2s5bch2v3fr" path="res://art/fonts/SpaceMono-Bold.ttf" id="1_w0h2i"]
+[ext_resource type="FontFile" uid="uid://cdw73osasygc4" path="res://art/fonts/SpaceMono-BoldItalic.ttf" id="2_8ykgb"]
+[ext_resource type="FontFile" uid="uid://d2l2jgg12vm3d" path="res://art/fonts/SpaceMono-Italic.ttf" id="3_aswi3"]
+[ext_resource type="FontFile" uid="uid://bgye1002h5lrl" path="res://art/fonts/SpaceMono-Regular.ttf" id="4_xhtqs"]
+
+[resource]
+RichTextLabel/colors/default_color = Color(0.623819, 1, 0.593898, 1)
+RichTextLabel/fonts/bold_font = ExtResource("1_w0h2i")
+RichTextLabel/fonts/bold_italics_font = ExtResource("2_8ykgb")
+RichTextLabel/fonts/italics_font = ExtResource("3_aswi3")
+RichTextLabel/fonts/normal_font = ExtResource("4_xhtqs")

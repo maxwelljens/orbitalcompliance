@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddib1b3iuu0eb"]
+
+[ext_resource type="Script" uid="uid://cvvomcjlaltli" path="res://ui/component_template.gd" id="1_mdido"]
+[ext_resource type="Theme" uid="uid://bsjkrm804wafy" path="res://ui/styles/small_font.tres" id="2_4sp64"]
+[ext_resource type="Resource" uid="uid://bilvmtcnctrhi" path="res://data/globals.tres" id="2_7iw3n"]
+
+[node name="ComponentTemplate" type="PanelContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 120)
+offset_right = 289.0
+offset_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("1_mdido")
+globals = ExtResource("2_7iw3n")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="PanelButton" type="Button" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopRow" type="HBoxContainer" parent="MarginContainer/PanelButton/VBoxContainer"]
+layout_mode = 2
+
+[node name="Selected" type="CheckBox" parent="MarginContainer/PanelButton/VBoxContainer/TopRow"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Name" type="RichTextLabel" parent="MarginContainer/PanelButton/VBoxContainer/TopRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+bbcode_enabled = true
+text = "Component Name"
+scroll_active = false
+
+[node name="BottomRow" type="HBoxContainer" parent="MarginContainer/PanelButton/VBoxContainer"]
+layout_mode = 2
+
+[node name="Description" type="RichTextLabel" parent="MarginContainer/PanelButton/VBoxContainer/BottomRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 51)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme = ExtResource("2_4sp64")
+bbcode_enabled = true
+text = "Component Description. Aenean at neque ante. Sed et metus rhoncus, tempor leo eget, efficitur dui."
+fit_content = true
+scroll_active = false
+
+[connection signal="pressed" from="MarginContainer/PanelButton" to="." method="_on_panel_button_pressed"]

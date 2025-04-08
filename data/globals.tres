@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="Globals" load_steps=2 format=3 uid="uid://bilvmtcnctrhi"]
+
+[ext_resource type="Script" uid="uid://c84dveu5hnmlg" path="res://data/globals.gd" id="1_lr8gs"]
+
+[resource]
+script = ExtResource("1_lr8gs")
