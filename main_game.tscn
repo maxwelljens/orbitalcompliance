@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://dg7llf6vs235i"]
+[gd_scene load_steps=9 format=3 uid="uid://dg7llf6vs235i"]
 
-[ext_resource type="Script" uid="uid://bmjec57s0yqwa" path="res://main_game.gd" id="1_1oj5k"]
+[ext_resource type="Script" uid="uid://bmjec57s0yqwa" path="res://logic/main_game.gd" id="1_1oj5k"]
 [ext_resource type="Theme" uid="uid://dpkauy46cuvyr" path="res://ui/styles/normalise.tres" id="1_6bm6p"]
 [ext_resource type="Resource" uid="uid://bilvmtcnctrhi" path="res://data/globals.tres" id="2_yx7mw"]
 [ext_resource type="PackedScene" uid="uid://ddib1b3iuu0eb" path="res://ui/component_template.tscn" id="3_ykeeq"]
@@ -8,9 +8,8 @@
 [ext_resource type="Theme" uid="uid://b0oj1gnil5il1" path="res://ui/styles/button_red.tres" id="5_dugkq"]
 [ext_resource type="Theme" uid="uid://77xkaw1qrmgr" path="res://ui/styles/terminal.tres" id="5_l5ukw"]
 [ext_resource type="Theme" uid="uid://0gapxyphftb4" path="res://ui/styles/button_progress.tres" id="6_2pltu"]
-[ext_resource type="Script" uid="uid://b88bblnuk3ong" path="res://ui/rig_slot_template.gd" id="6_4srsv"]
 
-[node name="MainGame" type="Control"]
+[node name="MainGame" type="Control" node_paths=PackedStringArray("comp_list_display", "comp_template_display", "rig_slots_list_display", "rig_slots_template")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,6 +21,10 @@ size_flags_vertical = 3
 theme = ExtResource("1_6bm6p")
 script = ExtResource("1_1oj5k")
 globals = ExtResource("2_yx7mw")
+comp_list_display = NodePath("VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList")
+comp_template_display = NodePath("VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList/ComponentTemplate")
+rig_slots_list_display = NodePath("VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList")
+rig_slots_template = NodePath("VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList/RigSlotTemplate")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -58,12 +61,10 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="ComponentList" type="VBoxContainer" parent="VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll"]
-unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="ComponentTemplate" parent="VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList" instance=ExtResource("3_ykeeq")]
-unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
@@ -86,11 +87,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="RigSlotTemplate" parent="VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList" instance=ExtResource("5_4srsv")]
-unique_name_in_owner = true
 visible = false
 layout_mode = 2
-script = ExtResource("6_4srsv")
-globals = null
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/TopPart"]
 layout_mode = 2
@@ -230,11 +228,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Accept"
 
-[node name="AcceptButton2" type="Button" parent="VBoxContainer/BottomPart/LeftSideMargin/ButtonsGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Accept"
-
 [node name="RightSideMargin" type="MarginContainer" parent="VBoxContainer/BottomPart"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -284,3 +277,7 @@ popup/item_0/text = "Take coffee break"
 popup/item_0/id = 0
 popup/item_1/text = "Exit game"
 popup/item_1/id = 1
+
+[connection signal="component_selected" from="VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList/ComponentTemplate" to="." method="_on_component_template_component_selected"]
+[connection signal="component_selected" from="VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList/RigSlotTemplate" to="." method="_on_rig_slot_template_component_selected"]
+[connection signal="pressed" from="VBoxContainer/BottomPart/LeftSideMargin/ButtonsGrid/AcceptButton" to="." method="_on_accept_button_pressed"]

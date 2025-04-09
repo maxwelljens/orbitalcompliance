@@ -1,6 +1,8 @@
 class_name ComponentTemplate
 extends PanelContainer
 
+signal component_selected(component: Component)
+
 @export var globals: Globals
 
 var component: Component
@@ -15,9 +17,11 @@ func init_component_display(new_component: Component) -> void:
 		%Description.text = desc_txt_format.format([globals.TCPUArch.keys()[component.architecture].rpad(12), component.teraflops, component.max_wattage])
 	self.visible = true
 
+func deselect() -> void:
+	selected = false
+	%Selected.button_pressed = false
+
 func _on_panel_button_pressed() -> void:
-	if selected:
-		selected = false
-	else:
-		selected = true
+	component_selected.emit(component)
+	selected = true
 	%Selected.button_pressed = selected

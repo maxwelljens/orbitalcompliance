@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bvku1wd63j6b4"]
+[gd_scene load_steps=3 format=3 uid="uid://bvku1wd63j6b4"]
 
 [ext_resource type="PackedScene" uid="uid://ddib1b3iuu0eb" path="res://ui/component_template.tscn" id="1_y2nd5"]
+[ext_resource type="Script" uid="uid://b88bblnuk3ong" path="res://ui/rig_slot_template.gd" id="2_ut8em"]
 
 [node name="RigSlotTemplate" instance=ExtResource("1_y2nd5")]
+script = ExtResource("2_ut8em")
 
 [node name="Name" parent="MarginContainer/PanelButton/VBoxContainer/TopRow" index="1"]
 text = "Slot name"
