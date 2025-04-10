@@ -1,12 +1,17 @@
 extends Control
 
+signal action_denied
+signal module_loaded
+
 @export var globals: Globals
 @export_category("Orders UI")
 @export var comp_list_display: VBoxContainer
-@export var comp_template_display: ComponentTemplate
+@export var comp_template: ComponentTemplate
 @export_category("Rig Slots UI")
 @export var rig_slots_list_display: VBoxContainer
 @export var rig_slots_template: RigSlotTemplate
+@export_category("UI General")
+@export var announcement_box: AnnouncementBox
 
 enum RSlot { TCPU, DRILLHEAD_A, DRILLHEAD_B, GEARBOX_A, GEARBOX_B }
 
@@ -26,6 +31,7 @@ var rig_slots: Dictionary[int, Component]
 var selected_rig_slot: Component
 
 func _ready():
+	announcement_box.display_message("Poopoo", true)
 	RenderingServer.set_default_clear_color("#192330")
 	_initialise_rig()
 	_initialise_orders()
@@ -69,7 +75,7 @@ func _initialise_orders() -> void:
 func _populate_displays() -> void:
 	# Orders
 	for comp in orders:
-		var new_node: ComponentTemplate = comp_template_display.duplicate()
+		var new_node: ComponentTemplate = comp_template.duplicate()
 		comp_list_display.add_child(new_node)
 		new_node.init_component_display(comp)
 	# Rig slots
@@ -106,11 +112,14 @@ func _on_rig_slot_template_component_selected(component: Component) -> void:
 
 func _on_accept_button_pressed() -> void:
 	if selected_order == null or selected_rig_slot == null:
+		action_denied.emit()
 		print("ERROR: Selections missing")
 		return
 	if selected_rig_slot != rig_slots[RSlot.TCPU]:
+		action_denied.emit()
 		print("ERROR: Not the right slot picked")
 		return
+	module_loaded.emit()
 	rig_slots[RSlot.TCPU] = selected_order
 	orders.erase(selected_order)
 	_install_component_logic()
