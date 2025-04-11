@@ -1,7 +1,9 @@
 extends Control
 
 signal action_denied
-signal module_loaded
+signal component_loaded
+signal component_rejected
+signal lost
 
 @export var globals: Globals
 @export_category("Orders UI")
@@ -18,7 +20,7 @@ enum RSlot { TCPU, DRILLHEAD_A, DRILLHEAD_B, GEARBOX_A, GEARBOX_B }
 const TCPU_ARCHITECTURE = globals.TCPUArch.RISC_V
 const MAX_WATTAGE = 9000
 const MAX_DRILL_DIAMETER = 250
-const MIN_FLOPS = 375
+const MIN_TERAFLOPS = 375
 const MIN_DRILL_TORQUE = 850
 const MIN_GEARBOX_TORQUE = 850
 const STEEL_TYPES = [globals.Steel.PN_H_85020, globals.Steel.ASTM_A516_G70]
@@ -31,7 +33,6 @@ var rig_slots: Dictionary[int, Component]
 var selected_rig_slot: Component
 
 func _ready():
-	announcement_box.display_message("Poopoo", true)
 	RenderingServer.set_default_clear_color("#192330")
 	_initialise_rig()
 	_initialise_orders()
@@ -98,7 +99,21 @@ func _update_rig_slot_list() -> void:
 			node.deselect()
 
 func _install_component_logic() -> void:
-	pass
+	var arch_mismatch: bool
+	var teraflops_too_low: bool
+	var wattage_too_high: bool
+	if selected_order.architecture != TCPU_ARCHITECTURE:
+		arch_mismatch = true
+		%GameOverText.text += "Architecture mismatch (RISC-V needed)\n"
+	if selected_order.teraflops < MIN_TERAFLOPS:
+		teraflops_too_low = true
+		%GameOverText.text += "Too few teraFLOPS (375 is minimum)\n"
+	if selected_order.max_wattage > MAX_WATTAGE:
+		wattage_too_high = true
+		%GameOverText.text += "Wattage too high (9000 is max)\n"
+	if arch_mismatch or teraflops_too_low or wattage_too_high:
+		%GameOverScreen.visible = true
+		lost.emit()
 
 func _on_component_template_component_selected(component: Component) -> void:
 	for entry in comp_list_display.get_children():
@@ -113,13 +128,13 @@ func _on_rig_slot_template_component_selected(component: Component) -> void:
 func _on_accept_button_pressed() -> void:
 	if selected_order == null or selected_rig_slot == null:
 		action_denied.emit()
-		print("ERROR: Selections missing")
+		announcement_box.display_message("Selections missing")
 		return
 	if selected_rig_slot != rig_slots[RSlot.TCPU]:
 		action_denied.emit()
-		print("ERROR: Not the right slot picked")
+		announcement_box.display_message("Wrong slot picked")
 		return
-	module_loaded.emit()
+	component_loaded.emit()
 	rig_slots[RSlot.TCPU] = selected_order
 	orders.erase(selected_order)
 	_install_component_logic()
@@ -127,3 +142,26 @@ func _on_accept_button_pressed() -> void:
 	_update_order_list()
 	selected_order = null
 	selected_rig_slot = null
+
+func _on_reject_button_pressed() -> void:
+	var arch_mismatch: bool
+	var teraflops_too_low: bool
+	var wattage_too_high: bool
+	if selected_order == null:
+		action_denied.emit()
+		announcement_box.display_message("No order selected")
+		return
+	if selected_order.architecture != TCPU_ARCHITECTURE:
+		arch_mismatch = true
+	if selected_order.teraflops < MIN_TERAFLOPS:
+		teraflops_too_low = true
+	if selected_order.max_wattage > MAX_WATTAGE:
+		wattage_too_high = true
+	if !arch_mismatch and !teraflops_too_low and !wattage_too_high:
+		%GameOverText.text += "This component was suitable for the rig"
+		%GameOverScreen.visible = true
+		lost.emit()
+	component_rejected.emit()
+	orders.erase(selected_order)
+	_update_order_list()
+	selected_order = null

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dg7llf6vs235i"]
+[gd_scene load_steps=15 format=3 uid="uid://dg7llf6vs235i"]
 
 [ext_resource type="Theme" uid="uid://dpkauy46cuvyr" path="res://ui/styles/normalise.tres" id="1_rk3nw"]
 [ext_resource type="Script" uid="uid://bmjec57s0yqwa" path="res://logic/main_game.gd" id="2_08egc"]
@@ -10,6 +10,120 @@
 [ext_resource type="Theme" uid="uid://b0oj1gnil5il1" path="res://ui/styles/button_red.tres" id="8_04351"]
 [ext_resource type="Theme" uid="uid://0gapxyphftb4" path="res://ui/styles/button_progress.tres" id="9_m3h2p"]
 [ext_resource type="PackedScene" uid="uid://b88aals4u6nuf" path="res://ui/announcement_box.tscn" id="10_08egc"]
+
+[sub_resource type="Animation" id="Animation_08egc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnnouncementBox:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnnouncementBox:offset_bottom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-85.0]
+}
+
+[sub_resource type="Animation" id="Animation_nqenu"]
+resource_name = "hide_announcement"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnnouncementBox:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(0.25, 0.25),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnnouncementBox:offset_bottom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-85.0, -45.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnnouncementBox:offset_top")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-125.0, -85.0]
+}
+
+[sub_resource type="Animation" id="Animation_sqx1r"]
+resource_name = "show_announcement"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnnouncementBox:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(3, 3),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnnouncementBox:offset_bottom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-45.0, -85.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnnouncementBox:offset_top")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-85.0, -125.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bvsc7"]
+_data = {
+&"RESET": SubResource("Animation_08egc"),
+&"hide_announcement": SubResource("Animation_nqenu"),
+&"show_announcement": SubResource("Animation_sqx1r")
+}
 
 [node name="MainGame" type="Control" node_paths=PackedStringArray("comp_list_display", "comp_template", "rig_slots_list_display", "rig_slots_template", "announcement_box")]
 layout_mode = 3
@@ -23,16 +137,21 @@ size_flags_vertical = 3
 theme = ExtResource("1_rk3nw")
 script = ExtResource("2_08egc")
 globals = ExtResource("3_nqenu")
-comp_list_display = NodePath("VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList")
-comp_template = NodePath("VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList/ComponentTemplate")
-rig_slots_list_display = NodePath("VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList")
-rig_slots_template = NodePath("VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList/RigSlotTemplate")
+comp_list_display = NodePath("MainView/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList")
+comp_template = NodePath("MainView/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList/ComponentTemplate")
+rig_slots_list_display = NodePath("MainView/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList")
+rig_slots_template = NodePath("MainView/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList/RigSlotTemplate")
 announcement_box = NodePath("AnnouncementBox")
 
 [node name="SFX" type="Node" parent="."]
 script = ExtResource("4_2cwpn")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_bvsc7")
+}
+
+[node name="MainView" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,85 +159,85 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TopPart" type="HBoxContainer" parent="VBoxContainer"]
+[node name="TopPart" type="HBoxContainer" parent="MainView"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="LeftSideMargin" type="MarginContainer" parent="VBoxContainer/TopPart"]
+[node name="LeftSideMargin" type="MarginContainer" parent="MainView/TopPart"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LeftSide" type="HBoxContainer" parent="VBoxContainer/TopPart/LeftSideMargin"]
+[node name="LeftSide" type="HBoxContainer" parent="MainView/TopPart/LeftSideMargin"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxCL" type="VBoxContainer" parent="VBoxContainer/TopPart/LeftSideMargin/LeftSide"]
+[node name="VBoxCL" type="VBoxContainer" parent="MainView/TopPart/LeftSideMargin/LeftSide"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxCL"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MainView/TopPart/LeftSideMargin/LeftSide/VBoxCL"]
 layout_mode = 2
 bbcode_enabled = true
 text = "[b]Orders[/b]"
 fit_content = true
 
-[node name="CLScroll" type="ScrollContainer" parent="VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxCL"]
+[node name="CLScroll" type="ScrollContainer" parent="MainView/TopPart/LeftSideMargin/LeftSide/VBoxCL"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ComponentList" type="VBoxContainer" parent="VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll"]
+[node name="ComponentList" type="VBoxContainer" parent="MainView/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ComponentTemplate" parent="VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList" instance=ExtResource("5_dab28")]
+[node name="ComponentTemplate" parent="MainView/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList" instance=ExtResource("5_dab28")]
 visible = false
 layout_mode = 2
 
-[node name="VBoxRig" type="VBoxContainer" parent="VBoxContainer/TopPart/LeftSideMargin/LeftSide"]
+[node name="VBoxRig" type="VBoxContainer" parent="MainView/TopPart/LeftSideMargin/LeftSide"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxRig"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MainView/TopPart/LeftSideMargin/LeftSide/VBoxRig"]
 layout_mode = 2
 bbcode_enabled = true
 text = "[b]Station Rig[/b]"
 fit_content = true
 
-[node name="RigScroll" type="ScrollContainer" parent="VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxRig"]
+[node name="RigScroll" type="ScrollContainer" parent="MainView/TopPart/LeftSideMargin/LeftSide/VBoxRig"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="RigList" type="VBoxContainer" parent="VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll"]
+[node name="RigList" type="VBoxContainer" parent="MainView/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RigSlotTemplate" parent="VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList" instance=ExtResource("6_3jl5s")]
+[node name="RigSlotTemplate" parent="MainView/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList" instance=ExtResource("6_3jl5s")]
 visible = false
 layout_mode = 2
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/TopPart"]
+[node name="VSeparator" type="VSeparator" parent="MainView/TopPart"]
 layout_mode = 2
 
-[node name="RightSideMargin" type="MarginContainer" parent="VBoxContainer/TopPart"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="RightSide" type="VBoxContainer" parent="VBoxContainer/TopPart/RightSideMargin"]
+[node name="RightSideMargin" type="MarginContainer" parent="MainView/TopPart"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TabContainer" type="TabContainer" parent="VBoxContainer/TopPart/RightSideMargin/RightSide"]
+[node name="RightSide" type="VBoxContainer" parent="MainView/TopPart/RightSideMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TabContainer" type="TabContainer" parent="MainView/TopPart/RightSideMargin/RightSide"]
 layout_mode = 2
 size_flags_vertical = 3
 current_tab = 1
 tabs_position = 1
 
-[node name="Terminal" type="TabBar" parent="VBoxContainer/TopPart/RightSideMargin/RightSide/TabContainer"]
+[node name="Terminal" type="TabBar" parent="MainView/TopPart/RightSideMargin/RightSide/TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/TopPart/RightSideMargin/RightSide/TabContainer/Terminal"]
+[node name="MarginContainer" type="MarginContainer" parent="MainView/TopPart/RightSideMargin/RightSide/TabContainer/Terminal"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -126,7 +245,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TerminalText" type="RichTextLabel" parent="VBoxContainer/TopPart/RightSideMargin/RightSide/TabContainer/Terminal/MarginContainer"]
+[node name="TerminalText" type="RichTextLabel" parent="MainView/TopPart/RightSideMargin/RightSide/TabContainer/Terminal/MarginContainer"]
 layout_mode = 2
 theme = ExtResource("7_00dd2")
 bbcode_enabled = true
@@ -134,11 +253,11 @@ text = "[b]>[/b] ls
 Documents   Music   Pictures
 Videos      Files   Placeholder"
 
-[node name="Details" type="TabBar" parent="VBoxContainer/TopPart/RightSideMargin/RightSide/TabContainer"]
+[node name="Details" type="TabBar" parent="MainView/TopPart/RightSideMargin/RightSide/TabContainer"]
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/TopPart/RightSideMargin/RightSide/TabContainer/Details"]
+[node name="MarginContainer" type="MarginContainer" parent="MainView/TopPart/RightSideMargin/RightSide/TabContainer/Details"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -146,19 +265,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DetailsText" type="RichTextLabel" parent="VBoxContainer/TopPart/RightSideMargin/RightSide/TabContainer/Details/MarginContainer"]
+[node name="DetailsText" type="RichTextLabel" parent="MainView/TopPart/RightSideMargin/RightSide/TabContainer/Details/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 10.0
 bbcode_enabled = true
 
-[node name="Manual" type="TabBar" parent="VBoxContainer/TopPart/RightSideMargin/RightSide/TabContainer"]
+[node name="Manual" type="TabBar" parent="MainView/TopPart/RightSideMargin/RightSide/TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/TopPart/RightSideMargin/RightSide/TabContainer/Manual"]
+[node name="MarginContainer" type="MarginContainer" parent="MainView/TopPart/RightSideMargin/RightSide/TabContainer/Manual"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -166,7 +285,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ManualText" type="RichTextLabel" parent="VBoxContainer/TopPart/RightSideMargin/RightSide/TabContainer/Manual/MarginContainer"]
+[node name="ManualText" type="RichTextLabel" parent="MainView/TopPart/RightSideMargin/RightSide/TabContainer/Manual/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 10.0
@@ -209,53 +328,53 @@ text = "[font_size=20][b]PolAstra Delta-7 Operations Manual[/b][/font_size]
 [hr]
 [i]-- Document Revision 2.7, PolAstra Central Compliance Office[/i]"
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="MainView"]
 layout_mode = 2
 
-[node name="BottomPart" type="HBoxContainer" parent="VBoxContainer"]
+[node name="BottomPart" type="HBoxContainer" parent="MainView"]
 layout_mode = 2
 
-[node name="LeftSideMargin" type="MarginContainer" parent="VBoxContainer/BottomPart"]
+[node name="LeftSideMargin" type="MarginContainer" parent="MainView/BottomPart"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ButtonsGrid" type="GridContainer" parent="VBoxContainer/BottomPart/LeftSideMargin"]
+[node name="ButtonsGrid" type="GridContainer" parent="MainView/BottomPart/LeftSideMargin"]
 layout_mode = 2
 size_flags_horizontal = 3
 columns = 2
 
-[node name="RejectButton" type="Button" parent="VBoxContainer/BottomPart/LeftSideMargin/ButtonsGrid"]
+[node name="RejectButton" type="Button" parent="MainView/BottomPart/LeftSideMargin/ButtonsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Reject"
 
-[node name="AcceptButton" type="Button" parent="VBoxContainer/BottomPart/LeftSideMargin/ButtonsGrid"]
+[node name="AcceptButton" type="Button" parent="MainView/BottomPart/LeftSideMargin/ButtonsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Accept"
 
-[node name="RightSideMargin" type="MarginContainer" parent="VBoxContainer/BottomPart"]
+[node name="RightSideMargin" type="MarginContainer" parent="MainView/BottomPart"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RightSide" type="VBoxContainer" parent="VBoxContainer/BottomPart/RightSideMargin"]
+[node name="RightSide" type="VBoxContainer" parent="MainView/BottomPart/RightSideMargin"]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="VBoxContainer/BottomPart/RightSideMargin/RightSide"]
+[node name="LineEdit" type="LineEdit" parent="MainView/BottomPart/RightSideMargin/RightSide"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 placeholder_text = "Type here..."
 caret_blink = true
 
-[node name="CoffeeButton" type="Button" parent="VBoxContainer/BottomPart/RightSideMargin/RightSide"]
+[node name="CoffeeButton" type="Button" parent="MainView/BottomPart/RightSideMargin/RightSide"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("8_04351")
 text = "Take coffee break"
 
-[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/BottomPart/RightSideMargin/RightSide/CoffeeButton"]
+[node name="ProgressBar" type="ProgressBar" parent="MainView/BottomPart/RightSideMargin/RightSide/CoffeeButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -284,17 +403,48 @@ popup/item_0/id = 0
 popup/item_1/text = "Exit game"
 popup/item_1/id = 1
 
-[node name="AnnouncementBox" parent="." instance=ExtResource("10_08egc")]
+[node name="AnnouncementBox" parent="." node_paths=PackedStringArray("animation_player") instance=ExtResource("10_08egc")]
+visible = false
 layout_mode = 1
-offset_left = 314.0
-offset_top = 16.0
-offset_right = -314.0
-offset_bottom = 78.0
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 0.5
+offset_left = 4.0
+offset_top = -85.0
+offset_right = -5.0
+offset_bottom = -85.0
+grow_vertical = 0
+animation_player = NodePath("../AnimationPlayer")
+
+[node name="GameOverScreen" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOverText" type="RichTextLabel" parent="GameOverScreen"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "[font_size=28][b]GAME OVER[/b][/font_size]
+"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="action_denied" from="." to="SFX" method="_on_main_game_action_denied"]
-[connection signal="module_loaded" from="." to="SFX" method="_on_main_game_module_loaded"]
-[connection signal="component_selected" from="VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList/ComponentTemplate" to="." method="_on_component_template_component_selected"]
-[connection signal="component_selected" from="VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList/ComponentTemplate" to="SFX" method="_on_component_template_component_selected"]
-[connection signal="component_selected" from="VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList/RigSlotTemplate" to="." method="_on_rig_slot_template_component_selected"]
-[connection signal="component_selected" from="VBoxContainer/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList/RigSlotTemplate" to="SFX" method="_on_rig_slot_template_component_selected"]
-[connection signal="pressed" from="VBoxContainer/BottomPart/LeftSideMargin/ButtonsGrid/AcceptButton" to="." method="_on_accept_button_pressed"]
+[connection signal="component_loaded" from="." to="SFX" method="_on_main_game_component_loaded"]
+[connection signal="component_rejected" from="." to="SFX" method="_on_main_game_component_rejected"]
+[connection signal="lost" from="." to="SFX" method="_on_main_game_lost"]
+[connection signal="animation_finished" from="AnimationPlayer" to="AnnouncementBox" method="_on_animation_player_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="AnnouncementBox" method="_on_animation_player_animation_started"]
+[connection signal="component_selected" from="MainView/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList/ComponentTemplate" to="." method="_on_component_template_component_selected"]
+[connection signal="component_selected" from="MainView/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList/ComponentTemplate" to="SFX" method="_on_component_template_component_selected"]
+[connection signal="component_selected" from="MainView/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList/RigSlotTemplate" to="." method="_on_rig_slot_template_component_selected"]
+[connection signal="component_selected" from="MainView/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList/RigSlotTemplate" to="SFX" method="_on_rig_slot_template_component_selected"]
+[connection signal="tab_clicked" from="MainView/TopPart/RightSideMargin/RightSide/TabContainer" to="SFX" method="_on_tab_container_tab_clicked"]
+[connection signal="pressed" from="MainView/BottomPart/LeftSideMargin/ButtonsGrid/RejectButton" to="." method="_on_reject_button_pressed"]
+[connection signal="pressed" from="MainView/BottomPart/LeftSideMargin/ButtonsGrid/AcceptButton" to="." method="_on_accept_button_pressed"]
