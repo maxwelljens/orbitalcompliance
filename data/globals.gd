@@ -1,6 +1,6 @@
 # globals.gd
 class_name Globals
-extends Resource
+extends Node
 
 enum Country { UNKNOWN, TEXAS, CALIFORNIA, NEW_YORK, CANADA, CHINA, INDIA,
 GERMANY, FRANCE, UNITED_KINGDOM, POLAND, ETU }
@@ -11,3 +11,6 @@ enum PowerConnector { EB_STD, NW_HIGHVOLT, OW_PHASE }
 enum Steel { UNKNOWN, PN_H_85020, ASTM_A516_G70, ASTM_A36, GOST_1050_88,
 GOST_15X }
 enum ComponentType { TCPU, DRILLHEAD, GEARBOX }
+
+var selected_order: Component
+var selected_rig_slot: Component

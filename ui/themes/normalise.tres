@@ -1,0 +1,86 @@
+[gd_resource type="Theme" load_steps=21 format=3 uid="uid://dpkauy46cuvyr"]
+
+[ext_resource type="FontFile" uid="uid://dj2ecssr4drdg" path="res://art/fonts/Quantico-Bold.ttf" id="1_phvvv"]
+[ext_resource type="StyleBox" uid="uid://cj3tvgof87you" path="res://ui/themes/styles/button_normal.tres" id="2_phvvv"]
+[ext_resource type="FontFile" uid="uid://bgye1002h5lrl" path="res://art/fonts/SpaceMono-Regular.ttf" id="3_ag46p"]
+[ext_resource type="StyleBox" uid="uid://ik84k7wsnlw0" path="res://ui/themes/styles/input_line.tres" id="4_b7odm"]
+[ext_resource type="FontFile" uid="uid://cmnwgvvtk3ag" path="res://art/fonts/Quantico-BoldItalic.ttf" id="4_citua"]
+[ext_resource type="FontFile" uid="uid://brodge1ea6thg" path="res://art/fonts/Quantico-Italic.ttf" id="5_l3ywg"]
+[ext_resource type="FontFile" uid="uid://c65sjm4g01tot" path="res://art/fonts/Quantico-Regular.ttf" id="6_dpm3h"]
+[ext_resource type="StyleBox" uid="uid://cyuhfykw2b01v" path="res://ui/themes/styles/tab_selected.tres" id="7_ydxff"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_b7odm"]
+color = Color(0.223529, 0.313726, 0.427451, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rqoqd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kql31"]
+bg_color = Color(0.0745098, 0.101961, 0.141176, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rqoqd"]
+bg_color = Color(0.0745098, 0.101961, 0.141176, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iqikl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_citua"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.129412, 0.180392, 0.247059, 1)
+border_width_right = 2
+border_color = Color(0.0745098, 0.101961, 0.141176, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_txre3"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.0980392, 0.137255, 0.188235, 1)
+border_width_right = 2
+border_color = Color(0.0745098, 0.101961, 0.141176, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_phvvv"]
+color = Color(0.0745098, 0.101961, 0.141176, 1)
+grow_end = 0.0
+thickness = 2
+vertical = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_phvvv"]
+bg_color = Color(0.129412, 0.180392, 0.247059, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b7odm"]
+bg_color = Color(0.160784, 0.223529, 0.309804, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ag46p"]
+bg_color = Color(0.129412, 0.180392, 0.247059, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ag46p"]
+color = Color(0.223529, 0.313726, 0.427451, 1)
+vertical = true
+
+[resource]
+Button/fonts/font = ExtResource("1_phvvv")
+Button/styles/normal = ExtResource("2_phvvv")
+HSeparator/styles/separator = SubResource("StyleBoxLine_b7odm")
+LineEdit/fonts/font = ExtResource("3_ag46p")
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_rqoqd")
+LineEdit/styles/normal = ExtResource("4_b7odm")
+MarginContainer/constants/margin_bottom = 6
+MarginContainer/constants/margin_left = 6
+MarginContainer/constants/margin_right = 6
+MarginContainer/constants/margin_top = 6
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_kql31")
+RichTextLabel/colors/default_color = Color(0.803922, 0.807843, 0.811765, 1)
+RichTextLabel/fonts/bold_font = ExtResource("1_phvvv")
+RichTextLabel/fonts/bold_italics_font = ExtResource("4_citua")
+RichTextLabel/fonts/italics_font = ExtResource("5_l3ywg")
+RichTextLabel/fonts/normal_font = ExtResource("6_dpm3h")
+TabContainer/constants/side_margin = 2
+TabContainer/fonts/font = ExtResource("1_phvvv")
+TabContainer/styles/panel = SubResource("StyleBoxFlat_rqoqd")
+TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_iqikl")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_citua")
+TabContainer/styles/tab_selected = ExtResource("7_ydxff")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_txre3")
+TabContainer/styles/tabbar_background = SubResource("StyleBoxLine_phvvv")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_phvvv")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_b7odm")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_ag46p")
+VSeparator/styles/separator = SubResource("StyleBoxLine_ag46p")

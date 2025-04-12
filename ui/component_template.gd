@@ -1,9 +1,9 @@
 class_name ComponentTemplate
 extends PanelContainer
 
-signal component_selected(component: Component)
+signal component_selected
 
-@export var globals: Globals
+@onready var globals: Globals = GlobalsNode
 
 var component: Component
 var selected: bool
@@ -22,6 +22,15 @@ func deselect() -> void:
 	%Selected.button_pressed = false
 
 func _on_panel_button_pressed() -> void:
-	component_selected.emit(component)
+	if self is RigSlotTemplate:
+		globals.selected_rig_slot = component
+	else:
+		globals.selected_order = component
+	component_selected.emit()
 	selected = true
 	%Selected.button_pressed = selected
+
+func _on_main_game_component_loaded() -> void:
+	# NOTE: I don't actually know why this can be null
+	if component == null:
+		queue_free()

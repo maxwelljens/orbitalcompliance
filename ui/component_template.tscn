@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://ddib1b3iuu0eb"]
+[gd_scene load_steps=5 format=3 uid="uid://ddib1b3iuu0eb"]
 
 [ext_resource type="Script" uid="uid://cvvomcjlaltli" path="res://ui/component_template.gd" id="1_mdido"]
-[ext_resource type="Theme" uid="uid://bsjkrm804wafy" path="res://ui/styles/small_font.tres" id="2_4sp64"]
-[ext_resource type="Resource" uid="uid://bilvmtcnctrhi" path="res://data/globals.tres" id="2_7iw3n"]
+[ext_resource type="Theme" uid="uid://bsjkrm804wafy" path="res://ui/themes/small_font.tres" id="2_4sp64"]
 [ext_resource type="Texture2D" uid="uid://5qcq4rahymis" path="res://art/icons/tcpu.png" id="4_7iw3n"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4sp64"]
@@ -17,7 +16,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
 script = ExtResource("1_mdido")
-globals = ExtResource("2_7iw3n")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -26,6 +24,7 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+focus_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelButton"]
 layout_mode = 1
@@ -56,7 +55,9 @@ layout_mode = 2
 [node name="Selected" type="CheckBox" parent="MarginContainer/PanelButton/VBoxContainer/TopRow"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_mode = 0
 mouse_filter = 2
+flat = true
 
 [node name="Name" type="RichTextLabel" parent="MarginContainer/PanelButton/VBoxContainer/TopRow"]
 unique_name_in_owner = true

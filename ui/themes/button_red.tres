@@ -2,10 +2,10 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7eye2"]
 bg_color = Color(0.717422, 0.0889452, 0.179559, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [resource]
 Button/styles/normal = SubResource("StyleBoxFlat_7eye2")

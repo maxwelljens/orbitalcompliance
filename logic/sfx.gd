@@ -31,7 +31,7 @@ func _ready() -> void:
 	ui_sound["Alarm"].stream = load("res://sound/ui/alarm.ogg")
 
 	# START MUSIC
-	music["Factory"].play()
+	# music["Factory"].play()
 
 func _on_main_game_action_denied() -> void:
 	ui_sound["DenyClick"].play()
@@ -42,10 +42,10 @@ func _on_main_game_component_loaded() -> void:
 func _on_main_game_component_rejected() -> void:
 	ui_sound["RejectModule"].play()
 
-func _on_component_template_component_selected(_component: Component) -> void:
+func _on_component_template_component_selected() -> void:
 	ui_sound["Click"].play()
 
-func _on_rig_slot_template_component_selected(_component: Component) -> void:
+func _on_rig_slot_template_component_selected() -> void:
 	ui_sound["Click"].play()
 
 func _on_tab_container_tab_clicked(_tab: int) -> void:

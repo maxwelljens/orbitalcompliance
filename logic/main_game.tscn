@@ -1,14 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://dg7llf6vs235i"]
+[gd_scene load_steps=14 format=3 uid="uid://dg7llf6vs235i"]
 
-[ext_resource type="Theme" uid="uid://dpkauy46cuvyr" path="res://ui/styles/normalise.tres" id="1_rk3nw"]
+[ext_resource type="Theme" uid="uid://dpkauy46cuvyr" path="res://ui/themes/normalise.tres" id="1_rk3nw"]
 [ext_resource type="Script" uid="uid://bmjec57s0yqwa" path="res://logic/main_game.gd" id="2_08egc"]
-[ext_resource type="Resource" uid="uid://bilvmtcnctrhi" path="res://data/globals.tres" id="3_nqenu"]
 [ext_resource type="Script" uid="uid://xbe48ivdb2y7" path="res://logic/sfx.gd" id="4_2cwpn"]
 [ext_resource type="PackedScene" uid="uid://ddib1b3iuu0eb" path="res://ui/component_template.tscn" id="5_dab28"]
 [ext_resource type="PackedScene" uid="uid://bvku1wd63j6b4" path="res://ui/rig_slot_template.tscn" id="6_3jl5s"]
-[ext_resource type="Theme" uid="uid://77xkaw1qrmgr" path="res://ui/styles/terminal.tres" id="7_00dd2"]
-[ext_resource type="Theme" uid="uid://b0oj1gnil5il1" path="res://ui/styles/button_red.tres" id="8_04351"]
-[ext_resource type="Theme" uid="uid://0gapxyphftb4" path="res://ui/styles/button_progress.tres" id="9_m3h2p"]
+[ext_resource type="Theme" uid="uid://77xkaw1qrmgr" path="res://ui/themes/terminal.tres" id="7_00dd2"]
+[ext_resource type="Theme" uid="uid://b0oj1gnil5il1" path="res://ui/themes/button_red.tres" id="8_04351"]
+[ext_resource type="Theme" uid="uid://0gapxyphftb4" path="res://ui/themes/button_progress.tres" id="9_m3h2p"]
 [ext_resource type="PackedScene" uid="uid://b88aals4u6nuf" path="res://ui/announcement_box.tscn" id="10_08egc"]
 
 [sub_resource type="Animation" id="Animation_08egc"]
@@ -136,7 +135,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_rk3nw")
 script = ExtResource("2_08egc")
-globals = ExtResource("3_nqenu")
 comp_list_display = NodePath("MainView/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList")
 comp_template = NodePath("MainView/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList/ComponentTemplate")
 rig_slots_list_display = NodePath("MainView/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList")
@@ -229,12 +227,12 @@ size_flags_horizontal = 3
 [node name="TabContainer" type="TabContainer" parent="MainView/TopPart/RightSideMargin/RightSide"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 1
+current_tab = 0
 tabs_position = 1
 
 [node name="Terminal" type="TabBar" parent="MainView/TopPart/RightSideMargin/RightSide/TabContainer"]
-visible = false
 layout_mode = 2
+focus_mode = 0
 metadata/_tab_index = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="MainView/TopPart/RightSideMargin/RightSide/TabContainer/Terminal"]
@@ -254,7 +252,9 @@ Documents   Music   Pictures
 Videos      Files   Placeholder"
 
 [node name="Details" type="TabBar" parent="MainView/TopPart/RightSideMargin/RightSide/TabContainer"]
+visible = false
 layout_mode = 2
+focus_mode = 0
 metadata/_tab_index = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MainView/TopPart/RightSideMargin/RightSide/TabContainer/Details"]
@@ -275,6 +275,7 @@ bbcode_enabled = true
 [node name="Manual" type="TabBar" parent="MainView/TopPart/RightSideMargin/RightSide/TabContainer"]
 visible = false
 layout_mode = 2
+focus_mode = 0
 metadata/_tab_index = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MainView/TopPart/RightSideMargin/RightSide/TabContainer/Manual"]
@@ -346,11 +347,13 @@ columns = 2
 [node name="RejectButton" type="Button" parent="MainView/BottomPart/LeftSideMargin/ButtonsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 text = "Reject"
 
 [node name="AcceptButton" type="Button" parent="MainView/BottomPart/LeftSideMargin/ButtonsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 text = "Accept"
 
 [node name="RightSideMargin" type="MarginContainer" parent="MainView/BottomPart"]
@@ -364,6 +367,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+focus_mode = 1
 placeholder_text = "Type here..."
 caret_blink = true
 
@@ -371,6 +375,7 @@ caret_blink = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+focus_mode = 0
 theme = ExtResource("8_04351")
 text = "Take coffee break"
 
@@ -437,6 +442,7 @@ vertical_alignment = 1
 
 [connection signal="action_denied" from="." to="SFX" method="_on_main_game_action_denied"]
 [connection signal="component_loaded" from="." to="SFX" method="_on_main_game_component_loaded"]
+[connection signal="component_loaded" from="." to="MainView/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList/ComponentTemplate" method="_on_main_game_component_loaded"]
 [connection signal="component_rejected" from="." to="SFX" method="_on_main_game_component_rejected"]
 [connection signal="lost" from="." to="SFX" method="_on_main_game_lost"]
 [connection signal="animation_finished" from="AnimationPlayer" to="AnnouncementBox" method="_on_animation_player_animation_finished"]
