@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://dg7llf6vs235i"]
+[gd_scene load_steps=15 format=3 uid="uid://dg7llf6vs235i"]
 
 [ext_resource type="Theme" uid="uid://dpkauy46cuvyr" path="res://ui/themes/normalise.tres" id="1_rk3nw"]
 [ext_resource type="Script" uid="uid://bmjec57s0yqwa" path="res://logic/main_game.gd" id="2_08egc"]
 [ext_resource type="Script" uid="uid://xbe48ivdb2y7" path="res://logic/sfx.gd" id="4_2cwpn"]
+[ext_resource type="Script" uid="uid://dsnn4m66e7c60" path="res://logic/rig.gd" id="4_08egc"]
 [ext_resource type="PackedScene" uid="uid://ddib1b3iuu0eb" path="res://ui/component_template.tscn" id="5_dab28"]
-[ext_resource type="PackedScene" uid="uid://bvku1wd63j6b4" path="res://ui/rig_slot_template.tscn" id="6_3jl5s"]
+[ext_resource type="Script" uid="uid://1j70d485jv8i" path="res://ui/component_list.gd" id="6_nqenu"]
 [ext_resource type="Theme" uid="uid://77xkaw1qrmgr" path="res://ui/themes/terminal.tres" id="7_00dd2"]
 [ext_resource type="Theme" uid="uid://b0oj1gnil5il1" path="res://ui/themes/button_red.tres" id="8_04351"]
 [ext_resource type="Theme" uid="uid://0gapxyphftb4" path="res://ui/themes/button_progress.tres" id="9_m3h2p"]
@@ -124,7 +125,7 @@ _data = {
 &"show_announcement": SubResource("Animation_sqx1r")
 }
 
-[node name="MainGame" type="Control" node_paths=PackedStringArray("comp_list_display", "comp_template", "rig_slots_list_display", "rig_slots_template", "announcement_box")]
+[node name="MainGame" type="Control" node_paths=PackedStringArray("rig", "sfx", "announcement_box")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -135,11 +136,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_rk3nw")
 script = ExtResource("2_08egc")
-comp_list_display = NodePath("MainView/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList")
-comp_template = NodePath("MainView/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList/ComponentTemplate")
-rig_slots_list_display = NodePath("MainView/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList")
-rig_slots_template = NodePath("MainView/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList/RigSlotTemplate")
+rig = NodePath("Rig")
+sfx = NodePath("SFX")
 announcement_box = NodePath("AnnouncementBox")
+
+[node name="Rig" type="Node" parent="."]
+script = ExtResource("4_08egc")
 
 [node name="SFX" type="Node" parent="."]
 script = ExtResource("4_2cwpn")
@@ -186,10 +188,8 @@ size_flags_vertical = 3
 [node name="ComponentList" type="VBoxContainer" parent="MainView/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="ComponentTemplate" parent="MainView/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList" instance=ExtResource("5_dab28")]
-visible = false
-layout_mode = 2
+script = ExtResource("6_nqenu")
+comp_template = ExtResource("5_dab28")
 
 [node name="VBoxRig" type="VBoxContainer" parent="MainView/TopPart/LeftSideMargin/LeftSide"]
 layout_mode = 2
@@ -208,10 +208,9 @@ size_flags_vertical = 3
 [node name="RigList" type="VBoxContainer" parent="MainView/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="RigSlotTemplate" parent="MainView/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList" instance=ExtResource("6_3jl5s")]
-visible = false
-layout_mode = 2
+script = ExtResource("6_nqenu")
+comp_template = ExtResource("5_dab28")
+comp_list_type = 1
 
 [node name="VSeparator" type="VSeparator" parent="MainView/TopPart"]
 layout_mode = 2
@@ -356,6 +355,11 @@ size_flags_horizontal = 3
 focus_mode = 0
 text = "Accept"
 
+[node name="Add" type="Button" parent="MainView/BottomPart/LeftSideMargin/ButtonsGrid"]
+layout_mode = 2
+text = "Add
+"
+
 [node name="RightSideMargin" type="MarginContainer" parent="MainView/BottomPart"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -440,17 +444,9 @@ text = "[font_size=28][b]GAME OVER[/b][/font_size]
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="action_denied" from="." to="SFX" method="_on_main_game_action_denied"]
-[connection signal="component_loaded" from="." to="SFX" method="_on_main_game_component_loaded"]
-[connection signal="component_loaded" from="." to="MainView/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList/ComponentTemplate" method="_on_main_game_component_loaded"]
-[connection signal="component_rejected" from="." to="SFX" method="_on_main_game_component_rejected"]
-[connection signal="lost" from="." to="SFX" method="_on_main_game_lost"]
 [connection signal="animation_finished" from="AnimationPlayer" to="AnnouncementBox" method="_on_animation_player_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="AnnouncementBox" method="_on_animation_player_animation_started"]
-[connection signal="component_selected" from="MainView/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList/ComponentTemplate" to="." method="_on_component_template_component_selected"]
-[connection signal="component_selected" from="MainView/TopPart/LeftSideMargin/LeftSide/VBoxCL/CLScroll/ComponentList/ComponentTemplate" to="SFX" method="_on_component_template_component_selected"]
-[connection signal="component_selected" from="MainView/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList/RigSlotTemplate" to="." method="_on_rig_slot_template_component_selected"]
-[connection signal="component_selected" from="MainView/TopPart/LeftSideMargin/LeftSide/VBoxRig/RigScroll/RigList/RigSlotTemplate" to="SFX" method="_on_rig_slot_template_component_selected"]
 [connection signal="tab_clicked" from="MainView/TopPart/RightSideMargin/RightSide/TabContainer" to="SFX" method="_on_tab_container_tab_clicked"]
 [connection signal="pressed" from="MainView/BottomPart/LeftSideMargin/ButtonsGrid/RejectButton" to="." method="_on_reject_button_pressed"]
 [connection signal="pressed" from="MainView/BottomPart/LeftSideMargin/ButtonsGrid/AcceptButton" to="." method="_on_accept_button_pressed"]
+[connection signal="pressed" from="MainView/BottomPart/LeftSideMargin/ButtonsGrid/Add" to="." method="_on_add_pressed"]
